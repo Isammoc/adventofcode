@@ -2,7 +2,20 @@
 
 Here my answers to the [Advent of Code](https://adventofcode.com) challenge.
 
-# Launch
+## Progress
+
+```
+              1111111111222222
+     1234567890123456789012345
+2015 ·························
+2016 ·························
+2017 XXX······················
+2018 ·························
+```
+
+`·`: todo, `/`: 1 star, `X`: 2 stars
+
+## Launch
 
 With your input in a file `inputXX.txt` (where `XX` is the #day).
 
@@ -22,7 +35,7 @@ For the first day of december 2018:
 ./sbt "run aoc2018.day01" < input01.txt
 ```
 
-# Utility script
+## Utility script
 
 To create a new day:
 
