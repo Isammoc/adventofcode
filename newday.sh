@@ -41,14 +41,14 @@ class day${DAY}Spec extends AocSpec {
 
     "part1" should {
       "example" in {
-        //day${DAY}.part1("") shouldEqual 0
+        //day${DAY}.part1("""""".stripMargin) shouldEqual 0
         pending
       }
     }
 
     "part2" should {
       "example" in {
-        //day${DAY}.part2("") shouldEqual 0
+        //day${DAY}.part2("""""".stripMargin) shouldEqual 0
         pending
       }
     }
