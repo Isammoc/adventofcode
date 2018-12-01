@@ -14,12 +14,31 @@ Where:
  * `YYYY` is the year
  * `XX` is the day
 
-## Examples:
+**Sample:**
 
 For the first day of december 2018:
 
 ```bash
 ./sbt "run aoc2018.day01" < input01.txt
+```
+
+# Utility script
+
+To create a new day:
+
+```bash
+./newday.sh [<year>] <day>
+```
+
+where:
+ * _year_ is the year with 4 digits (2018)
+ * _day_ is a two digits number (02)
+
+**Sample:**
+
+```bash
+./newday.sh 12
+./newday.sh 2017 02
 ```
 
 Enjoy! :evergreen_tree:
