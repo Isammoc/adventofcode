@@ -22,7 +22,7 @@ object day${DAY} extends App {
 
   // def part2(input: String) = ???
 
-  val input = io.Source.stdin.getLines.mkString
+  val input = io.Source.stdin.getLines.mkString("\n")
   println("part1 = " + part1(input))
   // println("part2 = " + part2(input))
 }
