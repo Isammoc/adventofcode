@@ -9,7 +9,7 @@ Here my answers to the [Advent of Code](https://adventofcode.com) challenge.
      1234567890123456789012345
 2015 ·························
 2016 ·························
-2017 XXXXXXXXXXXXXX···········
+2017 XXXXXXXXXXXXXXX··········
 2018 X························
 ```
 
