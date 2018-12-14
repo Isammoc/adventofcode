@@ -10,7 +10,7 @@ Here my answers to the [Advent of Code](https://adventofcode.com) challenge.
 2015 ·························
 2016 ·························
 2017 XXXXXXXXXXXXXXXXXXXXXX···
-2018 XXXXXXXXXXXXX············
+2018 XXXXXXXXXXXXXX···········
 ```
 
 `·`: todo, `/`: 1 star, `X`: 2 stars
