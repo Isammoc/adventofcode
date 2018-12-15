@@ -57,12 +57,12 @@ object day14 extends App {
       }
     }
 
-    case class Point(x: Int, y: Int) {
+    case class MyPoint(x: Int, y: Int) {
       def toInt = x * 128 + y
-      def neigh: List[Point] =
+      def neigh: List[MyPoint] =
         for {
           (dx, dy) <- List((0, 1), (0, -1), (1, 0), (-1, 0))
-          p = Point(x + dx, y + dy)
+          p = MyPoint(x + dx, y + dy)
           if 0 <= p.x && p.x < 128 && 0 <= p.y && p.y < 128
         } yield p
     }
@@ -77,7 +77,7 @@ object day14 extends App {
     for {
       x <- 0 to 127
       y <- 0 to 127
-      p1 = Point(x, y) if map(p1.x)(p1.y) == '1'
+      p1 = MyPoint(x, y) if map(p1.x)(p1.y) == '1'
       p2 <- p1.neigh if map(p2.x)(p2.y) == '1'
     } {
       conn.connect(p1.toInt, p2.toInt)
@@ -85,7 +85,7 @@ object day14 extends App {
     (for {
       x <- 0 to 127
       y <- 0 to 127
-      p = Point(x, y) if map(p.x)(p.y) == '1'
+      p = MyPoint(x, y) if map(p.x)(p.y) == '1'
     } yield conn.getRoot(p.toInt)).toSet.size
   }
 

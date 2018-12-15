@@ -1,9 +1,9 @@
 package aoc2018
+import common.grid.Point
 
 object day03 extends App {
 
   case class Rect(id: String, x: Int, y: Int, w: Int, h: Int)
-  case class Point(x: Int, y: Int)
 
   def part1(input: String): Int = {
     val LineReg = "#(.+) @ (.+),(.+): (.+)x(.+)".r

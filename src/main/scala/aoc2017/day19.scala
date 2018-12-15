@@ -1,33 +1,16 @@
 package aoc2017
+import common.grid.Direction._
+import common.grid._
 
 object day19 extends App {
 
-  case class Point(x: Int, y: Int) {
-    def go(dir: Direction): Point = dir match {
-      case Up    => Point(x, y - 1)
-      case Down  => Point(x, y + 1)
-      case Left  => Point(x - 1, y)
-      case Right => Point(x + 1, y)
+  implicit class MyDirection(direction: Direction) {
+    def turn(p: Point): List[(Direction, Point)] = direction match {
+      case North => List(West, East).map(d => (d, p.move(d)))
+      case South => List(West, East).map(d => (d, p.move(d)))
+      case East  => List(North, South).map(d => (d, p.move(d)))
+      case West  => List(North, South).map(d => (d, p.move(d)))
     }
-  }
-  abstract class Direction {
-    def turn(p: Point): List[(Direction, Point)]
-  }
-  case object Up extends Direction {
-    override def turn(p: Point): List[(Direction, Point)] =
-      List(Left, Right).map(d => (d, p.go(d)))
-  }
-  case object Down extends Direction {
-    override def turn(p: Point): List[(Direction, Point)] =
-      List(Left, Right).map(d => (d, p.go(d)))
-  }
-  case object Right extends Direction {
-    override def turn(p: Point): List[(Direction, Point)] =
-      List(Up, Down).map(d => (d, p.go(d)))
-  }
-  case object Left extends Direction {
-    override def turn(p: Point): List[(Direction, Point)] =
-      List(Up, Down).map(d => (d, p.go(d)))
   }
 
   def part1(input: String): String = {
@@ -49,12 +32,12 @@ object day19 extends App {
             .head
           loop(p2, d, found)
         case c if c == '|' || c == '-' => // continue
-          loop(p.go(dir), dir, found)
+          loop(p.move(dir), dir, found)
         case c => // letter
-          loop(p.go(dir), dir, c :: found)
+          loop(p.move(dir), dir, c :: found)
       }
     }
-    loop(Point(map(0).indexOf('|'), 0), Down, Nil)
+    loop(Point(map(0).indexOf('|'), 0), South, Nil)
   }
 
   def part2(input: String): Long = {
@@ -76,10 +59,10 @@ object day19 extends App {
             .head
           loop(p2, d, count + 1)
         case _ => // continue
-          loop(p.go(dir), dir, count + 1)
+          loop(p.move(dir), dir, count + 1)
       }
     }
-    loop(Point(map(0).indexOf('|'), 0), Down, 0)
+    loop(Point(map(0).indexOf('|'), 0), South, 0)
   }
 
   val input = io.Source.stdin.getLines.mkString("\n")

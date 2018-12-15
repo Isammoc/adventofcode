@@ -1,21 +1,17 @@
 package aoc2018
+import common.grid.Point
 
 object day06 extends App {
 
-  case class Point(x: Int, y: Int) {
-    def manhattan(xx: Int, yy: Int): Int = (xx - x).abs + (yy - y).abs
-  }
-  object Point {
-    def apply(str: String): Point = {
+  def parsePoint(str: String): Point = {
       val LineReg = "\\s*(\\d+),\\s*(\\d+)\\s*".r
       str match {
         case LineReg(x, y) => Point(x.toInt, y.toInt)
       }
     }
-  }
 
   def part1(input: String) = {
-    val points = input.split("\n").toList.map(Point.apply)
+    val points = input.split("\n").toList.map(parsePoint)
     val minx = points.map(_.x).min - 3
     val maxx = points.map(_.x).max + 3
     val miny = points.map(_.y).min - 3
@@ -66,7 +62,7 @@ object day06 extends App {
   }
 
   def part2(input: String, threshold: Int = 10000) = {
-    val points = input.split("\n").toList.map(Point.apply)
+    val points = input.split("\n").toList.map(parsePoint)
     val minx = points.map(_.x).min - 3
     val maxx = points.map(_.x).max + 3
     val miny = points.map(_.y).min - 3

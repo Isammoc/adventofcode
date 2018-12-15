@@ -1,4 +1,6 @@
 package aoc2018
+import common.grid._
+import common.grid.Direction._
 
 object day13 extends App {
 
@@ -14,7 +16,7 @@ object day13 extends App {
     val carts = for {
       (line, y) <- input.split("\n").toList.zipWithIndex
       (c, x) <- line.zipWithIndex
-      dir <- Direction(c)
+      dir <- parseDirection(c)
     } yield Cart(Point(x, y), dir, Left)
 
     def loop(carts: List[Cart] = carts.sortBy(_.location),
@@ -50,12 +52,13 @@ object day13 extends App {
     val carts = for {
       (line, y) <- input.split("\n").toList.zipWithIndex
       (c, x) <- line.zipWithIndex
-      dir <- Direction(c)
+      dir <- parseDirection(c)
     } yield Cart(Point(x, y), dir, Left)
 
     def loop(carts: List[Cart] = carts.sortBy(_.location),
              next: List[Cart] = Nil,
-             blocked: Set[Point] = carts.map(_.location).toSet, startTick: Boolean ): String = {
+             blocked: Set[Point] = carts.map(_.location).toSet,
+             startTick: Boolean): String = {
       carts match {
         case finalCart :: Nil if startTick =>
           s"${finalCart.location.x},${finalCart.location.y}"
@@ -90,7 +93,8 @@ object day13 extends App {
     val maxx = paths.keys.map(_.x).max
     val maxy = paths.keys.map(_.y).max
 
-    val track: Array[Array[Char]] = Array.ofDim[Char](maxy+1, maxx+1).map(_.map(_ => ' '))
+    val track: Array[Array[Char]] =
+      Array.ofDim[Char](maxy + 1, maxx + 1).map(_.map(_ => ' '))
 
     paths.foreach {
       case (point, Pipe) =>
@@ -116,8 +120,6 @@ object day13 extends App {
     println(track.map(_.mkString).mkString("\n"))
   }
 
-  sealed abstract class Direction
-
   sealed abstract class Way {
     val next: Way
 
@@ -125,20 +127,6 @@ object day13 extends App {
   }
 
   sealed abstract class Path
-
-  case class Point(x: Int, y: Int) extends Ordered[Point] {
-    import scala.math.Ordered.orderingToOrdered
-
-    override def compare(that: Point): Int =
-      (this.y, this.x) compare (that.y, that.x)
-
-    def move(direction: Direction): Point = direction match {
-      case North => Point(x, y - 1)
-      case South => Point(x, y + 1)
-      case East  => Point(x + 1, y)
-      case West  => Point(x - 1, y)
-    }
-  }
 
   case class Cart(location: Point, direction: Direction, way: Way = Left) {
     def move(path: Path): Cart = path match {
@@ -166,22 +154,12 @@ object day13 extends App {
     }
   }
 
-  case object North extends Direction
-
-  case object West extends Direction
-
-  case object South extends Direction
-
-  case object East extends Direction
-
-  object Direction {
-    def apply(c: Char): Option[Direction] = c match {
-      case '^' => Some(North)
-      case 'v' => Some(South)
-      case '<' => Some(West)
-      case '>' => Some(East)
-      case _   => None
-    }
+  def parseDirection(c: Char): Option[Direction] = c match {
+    case '^' => Some(North)
+    case 'v' => Some(South)
+    case '<' => Some(West)
+    case '>' => Some(East)
+    case _   => None
   }
 
   case object Left extends Way {

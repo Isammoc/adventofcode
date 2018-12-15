@@ -1,4 +1,5 @@
 package aoc2017
+import common.grid.Point
 
 object day03 extends App {
 
@@ -13,9 +14,9 @@ object day03 extends App {
 
   def part1(input: String) = toMove(input.toInt)
 
-  case class Point(x: Int, y: Int) {
-    def ring = math.max(x.abs, y.abs)
-    def n = this match {
+  implicit class ValuePoint(point: Point) {
+    def ring = math.max(point.x.abs, point.y.abs)
+    def n = point match {
       case Point(0, 0) => 1
       case Point(x, y) if x > 0 && x != y && x >= y.abs => // EAST
         (2 * this.ring - 1) * (2 * this.ring - 1) + (this.ring - y)
