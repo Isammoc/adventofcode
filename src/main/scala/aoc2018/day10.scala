@@ -2,7 +2,7 @@ package aoc2018
 
 object day10 extends App {
 
-  case class Point(x: Int, y: Int, vx: Int, vy: Int) {
+  case class Particle(x: Int, y: Int, vx: Int, vy: Int) {
     def current(s: Int): (Int, Int) = (x + s * vx, y + s * vy)
   }
 
@@ -10,7 +10,7 @@ object day10 extends App {
     val LineReg =
       "position=<\\s*(-?[0-9]+),\\s*(-?[0-9]+)> velocity=<\\s*(-?[0-9]+),\\s*(-?[0-9]+)>".r
     val points = input.split("\n").toList.map {
-      case LineReg(x, y, vx, vy) => Point(x.toInt, y.toInt, vx.toInt, vy.toInt)
+      case LineReg(x, y, vx, vy) => Particle(x.toInt, y.toInt, vx.toInt, vy.toInt)
     }
 
     def loop(current: Int, lastRange: Int): (String, Int) = {
