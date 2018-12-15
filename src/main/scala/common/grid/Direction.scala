@@ -6,6 +6,8 @@ sealed abstract class Direction {
   def reverse: Direction
 }
 object Direction {
+  val all: List[Direction] = List(North, West, East, South)
+
   case object North extends Direction {
     override def left: Direction = West
     override def right: Direction = East
