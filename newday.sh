@@ -38,17 +38,17 @@ import common.AocSpec
 class day${DAY}Spec extends AocSpec {
 
   "day${DAY} ${YEAR}" can {
+    val sample = """""".stripMargin
 
     "part1" should {
       "example" in {
-        //day${DAY}.part1("""""".stripMargin) shouldEqual 0
-        pending
+        day${DAY}.part1(sample) shouldEqual 0
       }
     }
 
     "part2" should {
       "example" in {
-        //day${DAY}.part2("""""".stripMargin) shouldEqual 0
+        //day${DAY}.part2(sample) shouldEqual 0
         pending
       }
     }
