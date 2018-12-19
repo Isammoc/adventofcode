@@ -1,5 +1,5 @@
 package aoc2018
-import aoc2018.day16.{AddI, MulR, SetI}
+import aoc2018.opcode._
 import common.AocSpec
 
 class day16Spec extends AocSpec {
