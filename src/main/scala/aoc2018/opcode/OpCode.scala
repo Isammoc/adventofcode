@@ -10,18 +10,23 @@ sealed abstract class OpCode {
   val isRegisterA: Boolean = isRegister(a)
   val isRegisterB: Boolean = isRegister(b)
   val isRegisterC: Boolean = isRegister(c)
+  val registers: Set[Int]
 }
 sealed abstract class OpCodeRR extends OpCode {
   def isPossible: Boolean = isRegisterA && isRegisterB && isRegisterC
+  val registers = Set(a, b, c)
 }
 sealed abstract class OpCodeIR extends OpCode {
   def isPossible: Boolean = isRegisterB && isRegisterC
+  val registers = Set(b, c)
 }
 sealed abstract class OpCodeRI extends OpCode {
   def isPossible: Boolean = isRegisterA && isRegisterC
+  val registers = Set(a, c)
 }
 sealed abstract class OpCodeII extends OpCode {
   def isPossible: Boolean = isRegisterC
+  val registers = Set(c)
 }
 case class AddR(a: Int, b: Int, c: Int) extends OpCodeRR {
   def apply(registers: Map[Int, Int]): Map[Int, Int] =
