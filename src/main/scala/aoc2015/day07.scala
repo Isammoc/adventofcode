@@ -1,11 +1,7 @@
 package aoc2015
-import scala.collection.mutable
+import common.util.Memoize
 
 object day07 extends App {
-  def memoize[I, O](f: I => O): I => O = new mutable.HashMap[I, O]() {
-    override def apply(key: I) = getOrElseUpdate(key, f(key))
-  }
-
   class Wire(val affectations: Map[String, String]) {
     private val NumberReg = "^([0-9]+)$".r
     private val AndReg = "(.*) AND (.*)".r
@@ -14,7 +10,7 @@ object day07 extends App {
     private val RShiftReg = "(.*) RSHIFT (.*)".r
     private val NotReg = "NOT (.*)".r
 
-    lazy val value: String => Int = memoize(v => (v, affectations.get(v)) match {
+    lazy val value: String => Int = Memoize.memoize(v => (v, affectations.get(v)) match {
       case (NumberReg(n), _) => n.toInt
       case (_, Some(NumberReg(a))) => a.toInt
       case (_, Some(AndReg(a, b))) => value(a) & value(b)
