@@ -1,4 +1,5 @@
 package aoc2015
+import common.util.Repeat
 
 object day10 extends App {
 
@@ -15,14 +16,10 @@ object day10 extends App {
   def parseInput(input: String): List[Int] = input.toList.map(_ - '0')
 
   def part1(input: String) =
-    (1 to 40)
-      .foldLeft(parseInput(input))((previous, _) => next(previous))
-      .size
+    Repeat(40)(parseInput(input))(next).size
 
   def part2(input: String): Int =
-    (1 to 50)
-      .foldLeft(parseInput(input))((previous, _) => next(previous))
-      .size
+    Repeat(50)(parseInput(input))(next).size
 
   val input = io.Source.stdin.getLines.mkString("\n")
   println("part1 = " + part1(input))

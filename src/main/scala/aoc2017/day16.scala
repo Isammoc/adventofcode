@@ -1,4 +1,5 @@
 package aoc2017
+import common.util.Repeat
 
 object day16 extends App {
 
@@ -50,9 +51,7 @@ object day16 extends App {
           loop(count + 1, part1(input, current), seen + (current -> count))
         case (_, Some(s)) => {
           val remain = (times - s) % (s - count)
-          (0 until remain).toStream.foldLeft(current) {
-            case (previous, _) => part1(input, previous)
-          }
+          Repeat(remain)(current)(part1(input, _))
         }
       }
 

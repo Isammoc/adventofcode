@@ -1,8 +1,8 @@
 package aoc2017
+import common.util.Repeat
 
 object day14 extends App {
-  def round64(l: List[Int]): List[Int] =
-    (1 to 6).toList.foldLeft(l)((l, _) => l ++ l)
+  def round64(l: List[Int]): List[Int] = Repeat(6)(l)(l => l ++ l)
 
   def round(currentRing: List[Int],
             currentPlace: Int,
@@ -36,13 +36,13 @@ object day14 extends App {
       .map(input + '-' + _)
       .map(knotHash)
       .map(BigInt(_, 16))
-      .map(_.toString(2).filter(_ == '1').size)
+      .map(_.toString(2).count(_ == '1'))
       .sum
   }
 
   def part2(input: String): Int = {
     class Connection(size: Int) {
-      private var map: Map[Int, Int] = (0 until size).map(i => (i -> i)).toMap
+      private var map: Map[Int, Int] = (0 until size).map(i => i -> i).toMap
       def getRoot(p: Int): Int =
         if (map(p) == p) p
         else {
@@ -58,7 +58,7 @@ object day14 extends App {
     }
 
     case class MyPoint(x: Int, y: Int) {
-      def toInt = x * 128 + y
+      def toInt: Int = x * 128 + y
       def neigh: List[MyPoint] =
         for {
           (dx, dy) <- List((0, 1), (0, -1), (1, 0), (-1, 0))
@@ -72,7 +72,7 @@ object day14 extends App {
       .map(knotHash)
       .map(BigInt(_, 16))
       .map(_.toString(2))
-      .map(s => "0" * (128 - s.size) + s)
+      .map(s => "0" * (128 - s.length) + s)
     val conn = new Connection(128 * 128)
     for {
       x <- 0 to 127

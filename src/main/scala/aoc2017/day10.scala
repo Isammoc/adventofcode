@@ -1,4 +1,5 @@
 package aoc2017
+import common.util.Repeat
 
 object day10 extends App {
 
@@ -27,15 +28,13 @@ object day10 extends App {
       0,
       input.split(",").map(_.trim.toInt).toList,
       0
-    ).take(2)
-      .foldLeft(1)((a, b) => a * b)
+    ).take(2).product
 
   def convertInput(input: String): List[Int] = {
     input.toList.map(_.toInt) ++ List(17, 31, 73, 47, 23)
   }
 
-  def round64(l: List[Int]): List[Int] =
-    (1 to 6).toList.foldLeft(l)((l, _) => l ++ l)
+  def round64(l: List[Int]): List[Int] = Repeat(6)(l)(l => l ++ l)
 
   def part2(input: String): String = {
     val inputLenghts = round64(convertInput(input))
